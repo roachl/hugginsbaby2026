@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fffaf2" />
+  <title>Baby Huggins Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,650&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <button class="brand" data-go="home" aria-label="Go home"><span class="spark">✦</span> Baby Huggins</button>
+    <nav aria-label="Games">
+      <button data-game="mini">The Midi</button>
+      <button data-game="wordle">Baby Word</button>
+      <button data-game="connections">Connections</button>
+      <button data-game="strands">Strands</button>
+      <button data-go="leaderboard">Leaderboard</button>
+    </nav>
+    <button class="help-btn" id="helpBtn" aria-label="How to play">?</button>
+  </header>
+
+  <main>
+    <section id="home" class="view active home-view">
+      <div class="hero">
+        <p class="eyebrow">Huggins Baby Celebration</p>
+        <h1>A little bundle<br>of <em>brain teasers.</em></h1>
+        <p class="hero-copy">Four sweet puzzles made for a very special celebration. No subscription required—just a little cleverness.</p>
+      </div>
+      <div class="game-grid">
+        <article class="game-card peach" data-game="mini" tabindex="0">
+          <div class="card-icon crossword-icon" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div><p class="card-kicker">Crossword</p><h2>The Midi</h2><p>Seven sweet clues. A little more to love.</p></div>
+          <button aria-label="Play The Midi">Play <span>→</span></button>
+        </article>
+        <article class="game-card butter" data-game="wordle" tabindex="0">
+          <div class="card-icon word-icon" aria-hidden="true"><b>B</b><b>A</b><b>B</b><b>Y</b></div>
+          <div><p class="card-kicker">Word game</p><h2>Baby Word</h2><p>Guess the five-letter baby-themed word.</p></div>
+          <button aria-label="Play Baby Word">Play <span>→</span></button>
+        </article>
+        <article class="game-card mint" data-game="connections" tabindex="0">
+          <div class="card-icon connection-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <div><p class="card-kicker">Categories</p><h2>Connections</h2><p>Find four groups with a baby-shower twist.</p></div>
+          <button aria-label="Play Connections">Play <span>→</span></button>
+        </article>
+        <article class="game-card lavender" data-game="strands" tabindex="0">
+          <div class="card-icon strands-icon" aria-hidden="true"><i>B</i><i>A</i><i>B</i><i>Y</i><i>S</i><i>T</i><i>R</i><i>A</i><i>N</i><i>D</i><i>S</i></div>
+          <div><p class="card-kicker">Word search</p><h2>Strands</h2><p>Uncover the words tied to one sweet theme.</p></div>
+          <button aria-label="Play Strands">Play <span>→</span></button>
+        </article>
+      </div>
+      <div class="home-leaderboard"><button data-go="leaderboard"><span>🏆</span> View the leaderboard</button></div>
+      <p class="today">Made with love for Anne and Austin <span>♡</span></p>
+    </section>
+
+    <section id="mini" class="view game-view">
+      <div class="game-heading"><button class="back" data-go="home">← All games</button><div class="game-timer" data-timer="mini" aria-live="off"><span>Elapsed</span><strong>0:00</strong></div><p class="eyebrow">Crossword</p><h1>The Midi</h1><p>More than a Mini, still snack-sized.</p></div>
+      <div class="mini-layout">
+        <div><div id="crossword" class="crossword" aria-label="Midi crossword"></div><div id="activeClueBar" class="active-clue-bar">Select a square to see its clue</div><div id="midiKeyboard" class="midi-keyboard" aria-label="Crossword keyboard"></div><div class="game-actions midi-actions"><button id="miniCheck">Check</button><button id="miniClear" class="secondary">Clear</button></div></div>
+        <div class="clues"><div><h3>Across</h3><ol id="acrossClues"></ol></div><div><h3>Down</h3><ol id="downClues"></ol></div></div>
+      </div>
+    </section>
+
+    <section id="wordle" class="view game-view compact-game">
+      <div class="game-heading"><button class="back" data-go="home">← All games</button><div class="game-timer" data-timer="wordle" aria-live="off"><span>Elapsed</span><strong>0:00</strong></div><p class="eyebrow">Word game</p><h1>Baby Word</h1><p>Guess the baby-themed word in six tries.</p></div>
+      <div id="wordBoard" class="word-board" aria-label="Word guessing board"></div>
+      <div id="keyboard" class="keyboard"></div>
+    </section>
+
+    <section id="connections" class="view game-view compact-game">
+      <div class="game-heading"><button class="back" data-go="home">← All games</button><div class="game-timer" data-timer="connections" aria-live="off"><span>Elapsed</span><strong>0:00</strong></div><p class="eyebrow">Categories</p><h1>Connections</h1><p>Create four groups of four. <span id="mistakesText">Mistakes remaining: ● ● ● ●</span></p></div>
+      <div id="solvedGroups" class="solved-groups"></div>
+      <div id="connectionGrid" class="connection-grid"></div>
+      <div class="game-actions centered"><button id="shuffleConnections" class="secondary">Shuffle</button><button id="deselectConnections" class="secondary">Deselect all</button><button id="submitConnections">Submit</button></div>
+    </section>
+
+    <section id="strands" class="view game-view compact-game">
+      <div class="game-heading"><button class="back" data-go="home">← All games</button><div class="game-timer" data-timer="strands" aria-live="off"><span>Elapsed</span><strong>0:00</strong></div><p class="eyebrow">Word search</p><h1>Strands</h1></div>
+      <div class="strands-theme"><span>Today's theme</span><strong>Ready for Baby</strong></div>
+      <div id="strandsCurrent" class="strands-current-word">Drag or tap to begin</div>
+      <div id="strandsGrid" class="strands-grid" aria-label="Strands letter grid"></div>
+      <div id="strandsWords" class="strands-words"></div>
+      <div class="strands-footer"><div class="game-actions"><button id="strandsHint" class="secondary">Hint</button><button id="strandsClear" class="secondary">Clear</button></div><strong id="strandsFound">0 of 6 theme words found.</strong></div>
+    </section>
+
+    <section id="leaderboard" class="view game-view compact-game leaderboard-view">
+      <div class="game-heading"><button class="back" data-go="home">← All games</button><p class="eyebrow">Baby Huggins celebration</p><h1>Leaderboard</h1><p>Four games. One very clever crowd.</p></div>
+      <div class="player-bar"><span>Playing as <strong id="currentPlayer">Guest</strong></span><button id="changeName" class="text-button">Change name</button></div>
+      <div class="leaderboard-filters" aria-label="Leaderboard ranking"><button class="active" data-leader-filter="all">Overall</button><button data-leader-filter="mini">Midi</button><button data-leader-filter="wordle">Baby Word</button><button data-leader-filter="connections">Connections</button><button data-leader-filter="strands">Strands</button></div>
+      <div id="leaderboardList" class="leaderboard-list"><p class="empty-board">No scores yet. Be the first!</p></div>
+      <div class="leaderboard-actions"><button id="refreshLeaderboard">Refresh</button><button id="clearLeaderboard" class="danger-button">Clear leaderboard</button></div>
+    </section>
+  </main>
+
+  <dialog id="modal"><button class="modal-close" aria-label="Close">×</button><div id="modalContent"></div></dialog>
+  <dialog id="nameModal" class="name-modal"><div><p class="eyebrow">Welcome, clever guest</p><h2>What's your name?</h2><p>This is how you'll appear on the baby-shower leaderboard.</p><form id="nameForm"><label for="playerName">Display name</label><input id="playerName" name="playerName" maxlength="24" autocomplete="name" required placeholder="e.g. Aunt Laura"><button type="submit">Let's play</button></form></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
