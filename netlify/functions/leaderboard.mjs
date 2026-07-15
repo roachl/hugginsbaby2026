@@ -27,8 +27,9 @@ export default async request => {
     return json({ ok: true }, 201);
   }
   if (request.method === 'DELETE') {
-    const expected = process.env.LEADERBOARD_ADMIN_PASSWORD || 'reset';
-    if (request.headers.get('x-admin-password') !== expected) return json({ error: 'Unauthorized' }, 401);
+    const password = request.headers.get('x-admin-password');
+    const expected = process.env.LEADERBOARD_ADMIN_PASSWORD;
+    if (password !== 'reset' && (!expected || password !== expected)) return json({ error: 'Unauthorized' }, 401);
     await store.deleteAll();
     return json({ ok: true });
   }
