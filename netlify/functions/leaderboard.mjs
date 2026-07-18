@@ -11,7 +11,7 @@ export default async request => {
   const store = getStore({ name: 'baby-shower-leaderboard', consistency: 'strong' });
   if (request.method === 'GET') {
     const url = new URL(request.url);
-    if (url.searchParams.get('qa') === 'version') return json({ ok: true, version: 'v7-reset-hardcoded', resetPassword: 'reset' });
+    if (url.searchParams.get('qa') === 'version') return json({ ok: true, version: 'v11-reset-hardcoded', resetPassword: 'reset' });
     const { blobs } = await store.list();
     const entries = await Promise.all(blobs.slice(0, 200).map(({ key }) => store.get(key, { type: 'json' })));
     return json(entries.filter(Boolean));
@@ -31,8 +31,9 @@ export default async request => {
   if (request.method === 'DELETE') {
     const password = String(request.headers.get('x-admin-password') || '').trim().toLowerCase();
     if (password !== 'reset') return json({ error: 'Unauthorized' }, 401);
-    await store.deleteAll();
-    return json({ ok: true });
+    const { blobs } = await store.list();
+    await Promise.all(blobs.map(({ key }) => store.delete(key)));
+    return json({ ok: true, deleted: blobs.length });
   }
   return json({ error: 'Method not allowed' }, 405);
 };

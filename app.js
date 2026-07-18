@@ -47,13 +47,13 @@ $('#clearLeaderboard').onclick=async()=>{
     if(isLocal)localStorage.removeItem('babyLocalLeaderboard');
     else{
       const r=await fetch(leaderboardApi,{method:'DELETE',headers:{'x-admin-password':password}});
-      if(!r.ok){const data=await r.json().catch(()=>({}));throw Error(data.error||'That password did not work')}
+      if(!r.ok){const data=await r.json().catch(()=>({}));throw Error(data.error||`Reset failed with status ${r.status}`)}
     }
     resetLocalGameProgress();
     leaderboardData=[];
     renderLeaderboard();
     toast('Leaderboard cleared');
-  }catch(error){toast(error.message||'That password did not work')}
+  }catch(error){toast(error.message||'Reset failed. Try refresh.')}
 };
 
 // A true interlocking Midi with both Across and Down entries.
